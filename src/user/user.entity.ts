@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { hash } from 'bcrypt';
+import { ArticleEntity } from '@app/article/article.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -34,10 +35,10 @@ export class UserEntity {
     this.password = await hash(this.password, 10);
   }
 
-  // @OneToMany(() => ArticleEntity, (article) => article.author)
-  // articles: ArticleEntity[];
+  @OneToMany(() => ArticleEntity, (article) => article.author)
+  articles: ArticleEntity[];
 
-  // @ManyToMany(() => ArticleEntity)
-  // @JoinTable()
-  // favorites: ArticleEntity[];
+  @ManyToMany(() => ArticleEntity)
+  @JoinTable()
+  favorites: ArticleEntity[];
 }
