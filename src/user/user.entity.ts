@@ -1,15 +1,24 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { hash } from 'bcrypt';
+
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  username: string;
+  email: string;
 
   @Column()
-  email: string;
+  username: string;
 
   @Column({ default: '' })
   bio: string;
@@ -22,6 +31,13 @@ export class UserEntity {
 
   @BeforeInsert()
   async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = await hash(this.password, 10);
   }
+
+  // @OneToMany(() => ArticleEntity, (article) => article.author)
+  // articles: ArticleEntity[];
+
+  // @ManyToMany(() => ArticleEntity)
+  // @JoinTable()
+  // favorites: ArticleEntity[];
 }
