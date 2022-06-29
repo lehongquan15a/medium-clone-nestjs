@@ -7,6 +7,7 @@ import { TagModule } from '@app/tag/tag.module';
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '@app/user/user.module';
+import { ProfileModule } from '@app/profile/profile.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UserModule } from '@app/user/user.module';
     TagModule,
     UserModule,
     ArticleModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
